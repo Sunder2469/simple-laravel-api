@@ -1,0 +1,78 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Documentation",
+        "description": "Class TransactionController",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/balance/currency": {
+            "get": {
+                "summary": "Get the current balance in a specified currency for the authenticated user",
+                "description": "Display the current balance in a specified currency for the authenticated user.",
+                "operationId": "cfdad2cb0df6a5cf1d1a707e9a3661cc",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/transactions": {
+            "get": {
+                "summary": "Get a list of transactions",
+                "description": "Display a listing of transactions.",
+                "operationId": "6581469356772e7a74a0d79897544f1a",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new transaction",
+                "description": "Store a newly created transaction.",
+                "operationId": "ab765dced58cfe2f620929db31452145",
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/api/transactions/{id}": {
+            "get": {
+                "summary": "Get a specific transaction",
+                "description": "Display the specified transaction.",
+                "operationId": "b3d11351fb6ea87ee797d24314e3b7fa",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a specific transaction",
+                "description": "Remove the specified transaction.",
+                "operationId": "5b95ee78a4db85f35f43b2b4eea85447",
+                "responses": {
+                    "204": {
+                        "description": "Deleted"
+                    }
+                }
+            }
+        },
+        "/api/user/balance": {
+            "get": {
+                "summary": "Get the current balance for the authenticated user",
+                "description": "Display the current balance for the authenticated user.",
+                "operationId": "3e300bc5dc55fc4087b7e6d66c97c7a6",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        }
+    }
+}
