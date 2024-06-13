@@ -23,9 +23,9 @@ class TransactionRequest extends FormRequest
     {
         return match ($this->route()->getActionMethod()) {
             'index' => [
-                'type' => 'required|in:income,expense',
-                'amount' => 'required|numeric',
-                'created_at' => 'required|date',
+                'type' => 'nullable|in:income,expense',
+                'amount' => 'nullable|numeric',
+                'created_at' => 'nullable|date',
             ],
             'store' => [
                 'type' => 'required|in:income,expense',

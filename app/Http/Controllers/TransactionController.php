@@ -13,6 +13,11 @@ use OpenApi\Annotations as OA;
  * @package App\Http\Controllers
  *
  * @OA\Info(title="API Documentation", version="1.0")
+ * @OA\SecurityScheme(
+ *     securityScheme="bearerAuth",
+ *     type="http",
+ *     scheme="bearer"
+ * )
  */
 class TransactionController extends Controller
 {
@@ -33,7 +38,40 @@ class TransactionController extends Controller
      * @OA\Get(
      *     path="/api/transactions",
      *     summary="Get a list of transactions",
-     *     @OA\Response(response="200", description="Success")
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="type",
+     *         in="query",
+     *         required=false,
+     *         @OA\Schema(type="string"),
+     *         description="Type of transaction (income or expense)"
+     *     ),
+     *     @OA\Parameter(
+     *         name="amount",
+     *         in="query",
+     *         required=false,
+     *         @OA\Schema(type="integer"),
+     *         description="Amount of the transaction"
+     *     ),
+     *     @OA\Parameter(
+     *         name="created_at",
+     *         in="query",
+     *         required=false,
+     *         @OA\Schema(type="string", format="date-time"),
+     *         description="Creation date of the transaction"
+     *     ),
+     *     @OA\Response(response="200", description="Success"),
+     *     @OA\Response(response="401", description="Unauthenticated"),
+     *     @OA\Header(
+     *         header="Content-Type",
+     *         description="Content-Type header",
+     *         @OA\Schema(type="string", default="application/json")
+     *     ),
+     *     @OA\Header(
+     *         header="Accept",
+     *         description="Accept header",
+     *         @OA\Schema(type="string", default="application/json")
+     *     )
      * )
      */
     public function index(TransactionRequest $request): JsonResponse
@@ -53,7 +91,27 @@ class TransactionController extends Controller
      * @OA\Post(
      *     path="/api/transactions",
      *     summary="Create a new transaction",
-     *     @OA\Response(response="201", description="Created")
+     *     security={{"bearerAuth":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"title", "amount"},
+     *             @OA\Property(property="title", type="string"),
+     *             @OA\Property(property="amount", type="integer")
+     *         )
+     *     ),
+     *     @OA\Response(response="201", description="Created"),
+     *     @OA\Response(response="401", description="Unauthenticated"),
+     *     @OA\Header(
+     *         header="Content-Type",
+     *         description="Content-Type header",
+     *         @OA\Schema(type="string", default="application/json")
+     *     ),
+     *     @OA\Header(
+     *         header="Accept",
+     *         description="Accept header",
+     *         @OA\Schema(type="string", default="application/json")
+     *     )
      * )
      */
     public function store(TransactionRequest $request): JsonResponse
@@ -75,7 +133,27 @@ class TransactionController extends Controller
      * @OA\Get(
      *     path="/api/transactions/{id}",
      *     summary="Get a specific transaction",
-     *     @OA\Response(response="200", description="Success")
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer"),
+     *         description="Transaction ID"
+     *     ),
+     *     @OA\Response(response="200", description="Success"),
+     *     @OA\Response(response="401", description="Unauthenticated"),
+     *     @OA\Response(response="404", description="Not Found"),
+     *     @OA\Header(
+     *         header="Content-Type",
+     *         description="Content-Type header",
+     *         @OA\Schema(type="string", default="application/json")
+     *     ),
+     *     @OA\Header(
+     *         header="Accept",
+     *         description="Accept header",
+     *         @OA\Schema(type="string", default="application/json")
+     *     )
      * )
      */
     public function show(int $id): JsonResponse
@@ -92,7 +170,27 @@ class TransactionController extends Controller
      * @OA\Delete(
      *     path="/api/transactions/{id}",
      *     summary="Delete a specific transaction",
-     *     @OA\Response(response="204", description="Deleted")
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer"),
+     *         description="Transaction ID"
+     *     ),
+     *     @OA\Response(response="204", description="Deleted"),
+     *     @OA\Response(response="401", description="Unauthenticated"),
+     *     @OA\Response(response="404", description="Not Found"),
+     *     @OA\Header(
+     *         header="Content-Type",
+     *         description="Content-Type header",
+     *         @OA\Schema(type="string", default="application/json")
+     *     ),
+     *     @OA\Header(
+     *         header="Accept",
+     *         description="Accept header",
+     *         @OA\Schema(type="string", default="application/json")
+     *     )
      * )
      */
     public function destroy(int $id): JsonResponse
